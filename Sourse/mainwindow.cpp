@@ -119,7 +119,7 @@ void MainWindow::createObj()
 void MainWindow::on_pushButton_2_clicked()
 {
     fileName = QFileDialog::getOpenFileName(0, QObject::tr("Open File"),
-                                                    ".\\",
+                                                    "..\\",
                                                     QObject::tr("Images (*.bmp)"));
     QPixmap pm;
     if (fileName != "")

@@ -1,11 +1,11 @@
 #include "parsebmp.h"
 
-ParseBmp::ParseBmp(const char *path)
+bool ParseBmp::open(const char *path)
 {
     file.open(path, ios::binary);
 
     if (!file)
-        cout << "file not open" << endl; //!
+        return 0;
 
     //Заголовок файла
     read(WORD, sizeof (WORD));      //Сигнатура "BM"
@@ -26,12 +26,14 @@ ParseBmp::ParseBmp(const char *path)
     read(DWORD, sizeof (DWORD));    //Вертикальное разрешение, точки на метр
     read(DWORD, sizeof (DWORD));    //Число используемых цветов
     read(DWORD, sizeof (DWORD));    //Число основных цветов
+
+    return 1;
 }
 
 //возвращает следующую строку по пикселям в формате ([r,g,b] [r,g,b] [r,g,b] [r,g,b] ... [r,g,b])
 QByteArray ParseBmp::getLine()
 {
-    static unsigned int r, g, b;
+    static uint32_t r, g, b;
 
     if (i < height)
     {

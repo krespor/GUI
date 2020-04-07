@@ -21,7 +21,14 @@ int Client::setSettings()
 
 int Client::translate()
 {
-    ParseBmp parser(path.toStdString().c_str());
+    ParseBmp parser;
+    if (!parser.open(path.toStdString().c_str()))
+    {
+        clientError("File '" + path.toStdString() + "' not found!");
+        return 0;
+    }
+
+
     serial.write( parser.getWH()); //отправка на сервер данных о ширине и высоте изображения
     serial.waitForBytesWritten(-1);
     serial.flush();

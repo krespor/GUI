@@ -37,9 +37,8 @@ int Server::translate()
         height = listWH[1].toInt();
         image.resize(height);
         Pixel p;
-        int k;
 
-        for (unsigned int i = 0; i < height; i++)
+        for (uint32_t i = 0; i < height; i++)
         {
             //ждёт от клиента данных о i-той строки
             if(serial.waitForReadyRead(-1))
@@ -47,7 +46,7 @@ int Server::translate()
                 QList<QByteArray> byteLine = serial.readAll().split(' ');
 
                 //проверка на целостность данных
-                if (byteLine.size() != width * 3)
+                if (uint32_t(byteLine.size()) != width * 3)
                 {
                     //сообщение клиенту о нецелостности данных
                     serial.write("DONT OK");
@@ -55,6 +54,7 @@ int Server::translate()
                     serial.flush();
 
                     serverError("Transmission lines " + to_string(i+1) + " of " + to_string(height) + ".\nExpected " + to_string(width * 3) + " instead of " + to_string(byteLine.size()));
+                    return 0;
                 } else
                 {
                     //сообщение пользователю об успешной передачи i-той строки
@@ -62,7 +62,7 @@ int Server::translate()
                 }
 
                 //сохранение строки изображения
-                k = 0;
+                uint32_t k = 0;
                 for (unsigned int j = 0; j < width; j++)
                 {
                     //заполнение пикселя 'p'

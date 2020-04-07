@@ -12,7 +12,8 @@ using namespace std;
 class ParseBmp
 {
 public:
-    ParseBmp(const char* path);
+    ParseBmp() {};
+    bool open(const char* path);
     QByteArray getLine();
     QByteArray getWH();
 

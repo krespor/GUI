@@ -15,13 +15,13 @@ class Client : public QThread
 {
     Q_OBJECT
 public:
-    explicit Client(QString namePort, unsigned int baud, QString path, QObject *parent = 0);
+    explicit Client(QString namePort, uint32_t baud, QString path, QObject *parent = 0);
 
 private:
     QSerialPort serial;
 
     QString namePort;
-    unsigned int baud;
+    uint32_t baud;
     QString path;
 
     int setSettings();

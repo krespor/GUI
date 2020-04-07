@@ -23,17 +23,17 @@ class Server : public QThread
 {
     Q_OBJECT
 public:
-    explicit Server(QString namePort, unsigned int baud, QObject *parent = 0);
+    explicit Server(QString namePort, uint32_t baud, QObject *parent = 0);
 
 
 private:
     QSerialPort serial;
 
     QString namePort;
-    unsigned int baud;
+    uint32_t baud;
 
-    unsigned int height;
-    unsigned int width;
+    uint32_t height;
+    uint32_t width;
 
     int setSettings();
     int translate();
